@@ -9,6 +9,7 @@ import './github-helpers/heat-map.css';
 import './features/github-bugs.css';
 import './features/tab-size.css';
 import './features/reactions-popup.css';
+import './features/mark-locked.js';
 import './features/monospace-textareas.css';
 import './features/clean-footer.css';
 import './features/pr-approvals-count.css';

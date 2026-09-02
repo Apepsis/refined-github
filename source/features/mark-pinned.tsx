@@ -1,18 +1,7 @@
-import './mark-pinned.css';
+import './mark-locked.css';
 import React from 'dom-chef';
 import * as pageDetect from 'github-url-detection';
-import PinIcon from 'octicons-plain-react/Pin';
-import {$, closestElement, elementExists} from 'select-dom';
-
-import features from '../feature-manager.js';
-import {is} from '../helpers/css-selectors.js';
-import observe from '../helpers/selector-observer.js';
-import {issueIcons} from './select-notifications.js';
-
-import * as pageDetect from 'github-url-detection';
 import LockIcon from 'octicons-plain-react/Lock';
-
-import {$} from 'select-dom';
 
 import features from '../feature-manager.js';
 import observe from '../helpers/selector-observer.js';

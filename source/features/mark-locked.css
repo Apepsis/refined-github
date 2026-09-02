@@ -1,0 +1,10 @@
+.rgh-locked-icon {
+	display: inline-flex;
+	margin-right: 4px;
+	color: var(--fgColor-muted);
+}
+
+.rgh-locked-icon svg {
+	width: 16px;
+	height: 16px;
+}

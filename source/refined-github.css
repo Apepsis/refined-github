@@ -1,3 +1,4 @@
+import './features/mark-locked.js';
 /* eslint-disable-next-line refined-github/css-documentation -- Global, no docs */
 :root {
 	--rgh-green: var(--fgColor-success, var(--color-success-fg, #1a7f37));

@@ -1,35 +1,28 @@
-import './mark-locked.css';
+import './mark-pinned.css';
 import React from 'dom-chef';
 import * as pageDetect from 'github-url-detection';
-import LockIcon from 'octicons-plain-react/Lock';
+import PinIcon from 'octicons-plain-react/Pin';
+import {$, closestElement, elementExists} from 'select-dom';
 
 import features from '../feature-manager.js';
+import {is} from '../helpers/css-selectors.js';
 import observe from '../helpers/selector-observer.js';
+import {issueIcons} from './select-notifications.js';
 
 function mark(issueLink: HTMLAnchorElement): void {
-	const row = issueLink.closest('.js-issue-row');
 
-	if (!row || row.querySelector('.rgh-locked-icon')) {
+	if (!elementExists(`[class*='PinnedIssues-module__container'] a[href="${issueLink.href}"]`)) {
 		return;
 	}
 
-	if (!row.querySelector('.octicon-lock')) {
-		return;
-	}
-
-	issueLink.before(
-		<span className="rgh-locked-icon" title="Locked issue">
-			<LockIcon />
-		</span>,
-	);
+	const paths = (<PinIcon />).children;
+	const icon = $(is(issueIcons), closestElement('li', issueLink));
+	icon.replaceChildren(...paths);
+	icon.parentElement!.classList.add('rgh-pinned-issue-icon');
 }
 
 function init(signal: AbortSignal): void {
-	observe(
-		'a[data-testid="issue-pr-title-link"]',
-		mark,
-		{signal},
-	);
+	observe('a[data-testid="issue-pr-title-link"]', mark, {signal});
 }
 
 void features.add(import.meta.url, {

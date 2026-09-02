@@ -28,7 +28,7 @@ function init(): void {
 	}
 }
 
-features.add(import.meta.url, {
+void.features.add(import.meta.url, {
 	include: [
     pageDetect.isRepoIssueList,
 ],

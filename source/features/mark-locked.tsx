@@ -1,36 +1,40 @@
+import './mark-locked.css';
 import React from 'dom-chef';
+import * as pageDetect from 'github-url-detection';
 import LockIcon from 'octicons-plain-react/Lock';
 
-import {$$} from 'select-dom';
 import features from '../feature-manager.js';
+import observe from '../helpers/selector-observer.js';
 
-import './mark-locked.css';
+function mark(issueLink: HTMLAnchorElement): void {
+	const row = issueLink.closest('.js-issue-row');
 
-function markLockedIssue(issue: Element): void {
-	const title = issue.querySelector('.Link--primary');
-
-	if (!title || issue.querySelector('.rgh-locked-icon')) {
+	if (!row || row.querySelector('.rgh-locked-icon')) {
 		return;
 	}
 
-	title.before(
+	if (!row.querySelector('.octicon-lock')) {
+		return;
+	}
+
+	issueLink.before(
 		<span className="rgh-locked-icon" title="Locked issue">
 			<LockIcon />
 		</span>,
 	);
 }
 
-function init(): void {
-	for (const issue of $$('.js-issue-row')) {
-		if (issue.querySelector('.octicon-lock')) {
-			markLockedIssue(issue);
-		}
-	}
+function init(signal: AbortSignal): void {
+	observe(
+		'a[data-testid="issue-pr-title-link"]',
+		mark,
+		{signal},
+	);
 }
 
-void.features.add(import.meta.url, {
+void features.add(import.meta.url, {
 	include: [
-    pageDetect.isRepoIssueList,
-],
-	load: init,
+		pageDetect.isRepoIssueList,
+	],
+	init,
 });

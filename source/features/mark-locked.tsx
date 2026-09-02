@@ -30,8 +30,7 @@ function init(): void {
 
 features.add(import.meta.url, {
 	include: [
-		/issues/,
-		/pulls/,
-	],
+    pageDetect.isRepoIssueList,
+],
 	load: init,
 });
